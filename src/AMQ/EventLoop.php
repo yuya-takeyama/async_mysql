@@ -35,12 +35,10 @@ class EventLoop
     {
         while ($this->poller->isUnfinished()) {
             if ($this->poller->poll()) {
-                foreach ($this->poller->getFinishedQueries() as $query) {
-                    if ($result = $query->getAsyncResult()) {
-                        $query->emit('result', array($result, $query));
-                    } else {
-                        $query->emit('error', array($query));
-                    }
+                $queries = $this->poller->getFinishedQueries();
+
+                foreach ($queries as $query) {
+                    $query->handleAsyncResult();
                 }
             }
         }

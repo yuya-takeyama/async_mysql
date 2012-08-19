@@ -63,4 +63,15 @@ class Query extends EventEmitter
     {
         return mysqli_reap_async_query($this->connection);
     }
+
+    public function handleAsyncResult()
+    {
+        $result = $this->getAsyncResult();
+
+        if ($result) {
+            $this->emit('result', array($result, $this));
+        } else {
+            $this->emit('error', array($this));
+        }
+    }
 }
