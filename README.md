@@ -1,7 +1,7 @@
 AMQ
 ===
 
-Asynchronous MySQL Queue
+Asynchronous MySQL Query
 
 Author
 ------
