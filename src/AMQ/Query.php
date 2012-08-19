@@ -17,8 +17,6 @@ class Query extends EventEmitter
 
     private $query;
 
-    private $executed = false;
-
     public function __construct(EventLoop $loop, Client $client, $query)
     {
         $this->loop   = $loop;

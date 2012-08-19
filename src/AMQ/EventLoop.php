@@ -5,7 +5,6 @@ namespace AMQ;
 use AMQ\Client;
 use AMQ\Query;
 use AMQ\QueryPoller;
-use AMQ\QueryStorage;
 
 class EventLoop
 {
