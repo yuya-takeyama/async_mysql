@@ -42,11 +42,16 @@ class EventLoop
 
             if (mysqli_poll($links, $error, $reject, 1)) {
                 foreach ($links as $link) {
-                    if ($res = mysqli_reap_async_query($link)) {
-                        $query = $this->relations[spl_object_hash($link)];
-                        $query->emit('data', array($res, $link, $query));
+                    $id    = spl_object_hash($link);
+                    $query = $this->relations[$id];
 
-                        $this->removeQuery($query);
+                    unset($this->relations[$id]);
+                    $this->removeQuery($query);
+
+                    if ($data = mysqli_reap_async_query($link)) {
+                        $query->emit('data', array($data, $query));
+                    } else {
+                        $query->emit('error', array($query));
                     }
                 }
             }
