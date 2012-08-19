@@ -74,4 +74,9 @@ class Query extends EventEmitter
     {
         return $this->query;
     }
+
+    public function getAsyncResult()
+    {
+        return mysqli_reap_async_query($this->realConnection);
+    }
 }

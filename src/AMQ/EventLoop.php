@@ -4,15 +4,18 @@ namespace AMQ;
 
 use AMQ\Connection;
 use AMQ\Query;
+use AMQ\QueryStorage;
 
 class EventLoop
 {
     private $relations;
 
+    private $queryStorage;
+
     public function __construct()
     {
-        $this->queries   = new \SplObjectStorage;
-        $this->relations = array();
+        $this->queries = new \SplObjectStorage;
+        $this->queryStorage = new QueryStorage;
     }
 
     public function connect($host = null, $user = null, $password = null, $dbname = null, $port = null, $socket = null)
@@ -35,24 +38,21 @@ class EventLoop
         $this->initConnection();
 
         while ($this->isAnyQueryAvailable()) {
-            $links = array_map(function ($query) {
-                return $query->getRealConnection();
-            }, $this->relations);
+            $links = $this->queryStorage->getConnections();
             $error = $reject = array();
 
             if (mysqli_poll($links, $error, $reject, 1)) {
                 foreach ($links as $link) {
-                    $id    = spl_object_hash($link);
-                    $query = $this->relations[$id];
+                    $query = $this->queryStorage->getQueryByConnection($link);
 
-                    unset($this->relations[$id]);
-                    $this->removeQuery($query);
-
-                    if ($data = mysqli_reap_async_query($link)) {
-                        $query->emit('data', array($data, $query));
+                    if ($result = $query->getAsyncResult($link)) {
+                        $query->emit('result', array($result, $query));
                     } else {
                         $query->emit('error', array($query));
                     }
+
+                    $this->removeQuery($query);
+                    $this->queryStorage->removeQueryByConnection($link);
                 }
             }
         }
@@ -62,12 +62,8 @@ class EventLoop
     {
         foreach ($this->queries as $query) {
             if (!$query->isConnected()) {
-                $conn = $query->getRealConnection();
-                $id   = spl_object_hash($conn);
-
                 $query->doQuery();
-
-                $this->relations[$id] = $query;
+                $this->queryStorage->set($query);
             }
         }
     }
