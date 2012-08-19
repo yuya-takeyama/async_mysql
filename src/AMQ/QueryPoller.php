@@ -58,7 +58,7 @@ class QueryPoller
         return $this->finishedQueries;
     }
 
-    public function isWaiting()
+    public function isUnfinished()
     {
         return count($this->queryStorage) > 0;
     }

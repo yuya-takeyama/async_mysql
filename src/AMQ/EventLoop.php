@@ -33,7 +33,7 @@ class EventLoop
 
     public function run()
     {
-        while ($this->poller->isWaiting()) {
+        while ($this->poller->isUnfinished()) {
             if ($this->poller->poll()) {
                 foreach ($this->poller->getFinishedQueries() as $query) {
                     if ($result = $query->getAsyncResult()) {
