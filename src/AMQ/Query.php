@@ -42,7 +42,7 @@ class Query extends EventEmitter
         }
     }
 
-    public function isConnected()
+    public function isExecuted()
     {
         return isset($this->connection);
     }

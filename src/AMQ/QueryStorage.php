@@ -4,7 +4,7 @@ namespace AMQ;
 
 use AMQ\Query;
 
-class QueryStorage
+class QueryStorage implements \Countable
 {
     private $queries;
 
@@ -39,5 +39,10 @@ class QueryStorage
         return array_map(function (Query $query) {
             return $query->getConnection();
         }, $this->queries);
+    }
+
+    public function count()
+    {
+        return count($this->queries);
     }
 }
