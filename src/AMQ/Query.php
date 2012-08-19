@@ -17,7 +17,7 @@ class Query extends EventEmitter
 
     private $query;
 
-    private $id;
+    private $executed = false;
 
     public function __construct(EventLoop $loop, Client $client, $query)
     {
@@ -28,27 +28,11 @@ class Query extends EventEmitter
         $loop->addQuery($this);
     }
 
-    public function getId()
-    {
-        if (is_null($this->id)) {
-            $this->id = spl_object_hash($this);
-        }
-
-        return $this->id;
-    }
-
     public function getConnection()
     {
         $this->connect();
 
         return $this->connection;
-    }
-
-    public function getConnectionId()
-    {
-        $this->connect();
-
-        return spl_object_hash($this->connection);
     }
 
     public function connect()
@@ -63,7 +47,7 @@ class Query extends EventEmitter
         return isset($this->connection);
     }
 
-    public function doQuery()
+    public function execute()
     {
         $this->connect();
 

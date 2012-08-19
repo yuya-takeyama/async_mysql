@@ -8,7 +8,7 @@ use AMQ\QueryStorage;
 
 class EventLoop
 {
-    private $relations;
+    private $queries;
 
     private $queryStorage;
 
@@ -35,7 +35,7 @@ class EventLoop
 
     public function run()
     {
-        $this->initAllClients();
+        $this->initAllQueries();
 
         while ($this->isAnyQueryAvailable()) {
             $links = $this->queryStorage->getConnections();
@@ -58,11 +58,11 @@ class EventLoop
         }
     }
 
-    private function initAllClients()
+    private function initAllQueries()
     {
         foreach ($this->queries as $query) {
             if (!$query->isConnected()) {
-                $query->doQuery();
+                $query->execute();
                 $this->queryStorage->set($query);
             }
         }
