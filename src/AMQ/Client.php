@@ -5,7 +5,7 @@ namespace AMQ;
 use AMQ\EventLoop;
 use AMQ\Query;
 
-class Connection
+class Client
 {
     private $loop;
 

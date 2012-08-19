@@ -3,7 +3,7 @@
 namespace AMQ;
 
 use AMQ\EventLoop;
-use AMQ\Connection;
+use AMQ\Client;
 
 use Evenement\EventEmitter;
 
@@ -11,7 +11,7 @@ class Query extends EventEmitter
 {
     private $loop;
 
-    private $connection;
+    private $client;
 
     private $realConnection;
 
@@ -19,11 +19,11 @@ class Query extends EventEmitter
 
     private $id;
 
-    public function __construct(EventLoop $loop, Connection $connection, $query)
+    public function __construct(EventLoop $loop, Client $client, $query)
     {
-        $this->loop       = $loop;
-        $this->connection = $connection;
-        $this->query      = $query;
+        $this->loop   = $loop;
+        $this->client = $client;
+        $this->query  = $query;
 
         $loop->addQuery($this);
     }
@@ -54,7 +54,7 @@ class Query extends EventEmitter
     public function realConnect()
     {
         if (is_null($this->realConnection)) {
-            $this->realConnection = $this->connection->getRealConnection();
+            $this->realConnection = $this->client->getRealConnection();
         }
     }
 

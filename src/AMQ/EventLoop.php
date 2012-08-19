@@ -2,7 +2,7 @@
 
 namespace AMQ;
 
-use AMQ\Connection;
+use AMQ\Client;
 use AMQ\Query;
 use AMQ\QueryStorage;
 
@@ -20,7 +20,7 @@ class EventLoop
 
     public function connect($host = null, $user = null, $password = null, $dbname = null, $port = null, $socket = null)
     {
-        return new Connection($this, $host, $user, $password, $dbname, $port, $socket);
+        return new Client($this, $host, $user, $password, $dbname, $port, $socket);
     }
 
     public function addQuery(Query $query)
@@ -35,7 +35,7 @@ class EventLoop
 
     public function run()
     {
-        $this->initConnection();
+        $this->initAllClients();
 
         while ($this->isAnyQueryAvailable()) {
             $links = $this->queryStorage->getConnections();
@@ -58,7 +58,7 @@ class EventLoop
         }
     }
 
-    private function initConnection()
+    private function initAllClients()
     {
         foreach ($this->queries as $query) {
             if (!$query->isConnected()) {
