@@ -32,7 +32,7 @@ class Client
         return new Query($this->loop, $this, $sql);
     }
 
-    public function getRealConnection()
+    public function getConnection()
     {
         return mysqli_connect($this->host, $this->user, $this->password, $this->dbname, $this->port, $this->socket);
     }

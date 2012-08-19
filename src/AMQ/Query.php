@@ -13,7 +13,7 @@ class Query extends EventEmitter
 
     private $client;
 
-    private $realConnection;
+    private $connection;
 
     private $query;
 
@@ -37,37 +37,37 @@ class Query extends EventEmitter
         return $this->id;
     }
 
-    public function getRealConnection()
+    public function getConnection()
     {
-        $this->realConnect();
+        $this->connect();
 
-        return $this->realConnection;
+        return $this->connection;
     }
 
     public function getConnectionId()
     {
-        $this->realConnect();
+        $this->connect();
 
-        return spl_object_hash($this->realConnection);
+        return spl_object_hash($this->connection);
     }
 
-    public function realConnect()
+    public function connect()
     {
-        if (is_null($this->realConnection)) {
-            $this->realConnection = $this->client->getRealConnection();
+        if (is_null($this->connection)) {
+            $this->connection = $this->client->getConnection();
         }
     }
 
     public function isConnected()
     {
-        return isset($this->realConnection);
+        return isset($this->connection);
     }
 
     public function doQuery()
     {
-        $this->realConnect();
+        $this->connect();
 
-        mysqli_query($this->realConnection, $this->query, MYSQLI_ASYNC);
+        mysqli_query($this->connection, $this->query, MYSQLI_ASYNC);
     }
 
     public function getQuery()
@@ -77,6 +77,6 @@ class Query extends EventEmitter
 
     public function getAsyncResult()
     {
-        return mysqli_reap_async_query($this->realConnection);
+        return mysqli_reap_async_query($this->connection);
     }
 }
