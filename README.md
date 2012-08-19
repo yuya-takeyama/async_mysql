@@ -11,6 +11,7 @@ Example
 This example executes multiple sleeping query in parallel.
 
 ```php
+<?php
 $loop = new AMQ\EventLoop;
 
 $conn = $loop->connect('localhost');
