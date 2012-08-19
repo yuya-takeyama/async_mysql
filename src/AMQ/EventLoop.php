@@ -37,7 +37,7 @@ class EventLoop
         while ($this->isAnyQueryAvailable()) {
             $links = array_map(function ($query) {
                 return $query->getRealConnection();
-            }, array_values($this->relations));
+            }, $this->relations);
             $error = $reject = array();
 
             if (mysqli_poll($links, $error, $reject, 1)) {
@@ -58,7 +58,7 @@ class EventLoop
         }
     }
 
-    public function initConnection()
+    private function initConnection()
     {
         foreach ($this->queries as $query) {
             if (!$query->isConnected()) {
@@ -72,7 +72,7 @@ class EventLoop
         }
     }
 
-    public function isAnyQueryAvailable()
+    private function isAnyQueryAvailable()
     {
         return count($this->queries) > 0;
     }
