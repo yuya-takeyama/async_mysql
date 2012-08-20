@@ -5,7 +5,7 @@ Asynchronous MySQL Query
 
 This is an example project provides APIs to execute MySQL queries asynchronously using [MySQL Native Driver](http://www.php.net/manual/ja/book.mysqlnd.php)
 
-This is just an example Project
+This is just an example project
 -------------------------------
 
 I'll not develop this project continuously.  
