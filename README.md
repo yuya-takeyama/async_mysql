@@ -11,7 +11,7 @@ This is just an example project
 I'll not develop this project continuously.  
 But I want to integrate something like this into [React](https://github.com/react-php/react)
 
-But MySQL Native Driver can't be polled using `select_stream()`.  
+But MySQL Native Driver can't be polled using `stream_select()`.  
 So any advices are welcome.
 
 Example
