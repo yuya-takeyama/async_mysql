@@ -1,9 +1,9 @@
 <?php
 
-namespace AMQ;
+namespace AsyncMysql;
 
-use AMQ\Query;
-use AMQ\QueryStorage;
+use AsyncMysql\Query;
+use AsyncMysql\QueryStorage;
 
 class QueryPoller
 {

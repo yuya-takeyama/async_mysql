@@ -1,9 +1,9 @@
-AMQ
-===
+AsyncMysql
+==========
 
 Asynchronous MySQL Query
 
-This is an example project provides async MySQL query using [MySQL Native Driver](http://www.php.net/manual/ja/book.mysqlnd.php)
+This is an example project provides APIs to execute MySQL queries asynchronously using [MySQL Native Driver](http://www.php.net/manual/ja/book.mysqlnd.php)
 
 Example
 -------
@@ -12,7 +12,7 @@ This example executes multiple sleeping query in parallel.
 
 ```php
 <?php
-$loop = new AMQ\EventLoop;
+$loop = new AsyncMysql\EventLoop;
 
 $conn = $loop->connect('localhost');
 

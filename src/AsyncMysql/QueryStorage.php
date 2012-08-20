@@ -1,8 +1,8 @@
 <?php
 
-namespace AMQ;
+namespace AsyncMysql;
 
-use AMQ\Query;
+use AsyncMysql\Query;
 
 class QueryStorage implements \Countable
 {

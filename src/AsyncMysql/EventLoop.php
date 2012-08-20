@@ -1,10 +1,10 @@
 <?php
 
-namespace AMQ;
+namespace AsyncMysql;
 
-use AMQ\Client;
-use AMQ\Query;
-use AMQ\QueryPoller;
+use AsyncMysql\Client;
+use AsyncMysql\Query;
+use AsyncMysql\QueryPoller;
 
 class EventLoop
 {

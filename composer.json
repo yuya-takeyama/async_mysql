@@ -4,6 +4,6 @@
         "evenement/evenement": "1.0.*"
     },
     "autoload": {
-        "psr-0": {"AMQ": "src"}
+        "psr-0": {"AsyncMysql": "src"}
     }
 }

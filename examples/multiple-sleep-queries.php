@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-$loop = new AMQ\EventLoop;
+$loop = new AsyncMysql\EventLoop;
 
 $conn = $loop->connect('localhost');
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace AMQ;
+namespace AsyncMysql;
 
-use AMQ\EventLoop;
-use AMQ\Query;
+use AsyncMysql\EventLoop;
+use AsyncMysql\Query;
 
 class Client
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace AMQ;
+namespace AsyncMysql;
 
-use AMQ\EventLoop;
-use AMQ\Client;
+use AsyncMysql\EventLoop;
+use AsyncMysql\Client;
 
 use Evenement\EventEmitter;
 
