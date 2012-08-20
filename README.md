@@ -5,6 +5,15 @@ Asynchronous MySQL Query
 
 This is an example project provides APIs to execute MySQL queries asynchronously using [MySQL Native Driver](http://www.php.net/manual/ja/book.mysqlnd.php)
 
+This is just an example Project
+-------------------------------
+
+I'll not develop this project continuously.  
+But I want to integrate something like this into [React](https://github.com/react-php/react)
+
+But MySQL Native Driver can't be polled using `select_stream()`.  
+So any advices are welcome.
+
 Example
 -------
 
